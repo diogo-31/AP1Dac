@@ -22,7 +22,7 @@ public class Jogada
 	@Column(name = "resultado_final")
 	private String resultado;
 	@Temporal(TemporalType.DATE)
-	private Date data;
+	private Date data = new Date();;
 	
 	public Integer getId() {
 		return this.id;

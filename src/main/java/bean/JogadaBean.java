@@ -1,6 +1,15 @@
 package bean;
 
+import static util.MessageUtil.addErrorMessage;
+import static util.MessageUtil.addInfoMessage;
+import static util.MessageUtil.addWarningMessage;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.faces.bean.ManagedBean;
 
@@ -16,20 +25,43 @@ public class JogadaBean
 	public String salvar() 
 	{
 		try{
-			jogada.setJogada1("Pedra");
-			jogada.setJogada2("Papel");
+			List<String> jogadasPossiveis = Arrays.asList("Pedra", "Papel", "Tesoura");
 			
-			if(jogada.getJogada1() == jogada.getJogada2())
+			jogada.setJogada1(jogadasPossiveis.get(new Random().nextInt(jogadasPossiveis.size())));
+			jogada.setJogada2(jogadasPossiveis.get(new Random().nextInt(jogadasPossiveis.size())));
+			
+			System.out.println(jogada.getJogada1() +" - "+ jogada.getJogada2());
+			if(jogada.getJogada1() == jogada.getJogada2()){
 				jogada.setResultado("Empate");
-			
-			
+			}else if(jogada.getJogada1() == "Pedra" && jogada.getJogada2() == "Papel" ) {
+				jogada.setResultado("Jogador 2 ganhou!");
+			}else if(jogada.getJogada1() == "Pedra" && jogada.getJogada2() == "Tesoura" ) {
+				jogada.setResultado("Jogador 1 ganhou!");
+			}else if(jogada.getJogada2() == "Pedra" && jogada.getJogada1() == "Papel" ) {
+				jogada.setResultado("Jogador 1 ganhou!");
+			}else if(jogada.getJogada2() == "Pedra" && jogada.getJogada1() == "Tesoura" ) {
+				jogada.setResultado("Jogador 1 ganhou!");
+			}else if(jogada.getJogada1() == "Tesoura" && jogada.getJogada2() == "Papel"){
+				jogada.setResultado("Jogador 1 ganhou!");
+			}else if(jogada.getJogada1() == "Papel" && jogada.getJogada2() == "Tesoura"){
+				jogada.setResultado("Jogador 2 ganhou!");
+			}else {
+				System.out.println("nenhuma opção encontrada");
+				System.out.println("jogada.getJogada2()"+jogada.getJogada2()+"jogada.getJogada1()"+jogada.getJogada1());
+			}
+
 			JogadaDAO.salvar(jogada);
 			
-			
-			
+			if(jogada.getResultado() == "Empate") {
+				addWarningMessage(jogada.getResultado(), "Opa! Vamo mais uma?");
+			}else {
+				addInfoMessage(jogada.getResultado(),"Hoje é seu dia de sorte!");
+			}
+				
 			jogada = new Jogada();
 		}catch (Exception e) {
 			System.out.println(e);
+			addErrorMessage("Erro", "Erro ao salvar jogada.");
 		}
 		
 		return null;

@@ -11,7 +11,9 @@
 	   	<p:dataTable value="#{jogadaBean.listaJogada}" var="jogada">
 	   		<p:column headerText="Jogador 1"><p:outputLabel value="#{jogada.jogador1}"/></p:column>
 	   		<p:column headerText="Jogador 2"><p:outputLabel value="#{jogada.jogador2}"/></p:column>
-	   		<p:column headerText="Editar"><p:commandButton action="#{jogadaBean.editar}" value="Editar" styleClass="ui-button-warning" /></p:column>
+	   		<p:column headerText="Resultado"><p:outputLabel value="#{jogada.resultado}"/></p:column>
+	   		<p:column headerText="Data"><p:outputLabel value="#{jogada.data}"/></p:column>
+	   		<p:column headerText="Editar"><p:commandButton action="#{jogadaBean.editar}" value="Editar" /></p:column>
 	   		<p:column headerText="Excluir"><p:commandButton action="#{jogadaBean.excluir(jogada.id)}" value="Excluir" styleClass="ui-button-danger" /></p:column>
 	   	</p:dataTable>
    	</h:body>
