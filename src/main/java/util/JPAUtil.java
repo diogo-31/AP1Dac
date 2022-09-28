@@ -8,7 +8,8 @@ public class JPAUtil
 {
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("integracaoBD");
 	
-	public static EntityManager criarEntityManager() {
+	public static EntityManager criarEntityManager() 
+	{
 		return emf.createEntityManager();
 	}
 }

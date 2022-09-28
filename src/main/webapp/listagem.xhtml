@@ -8,13 +8,23 @@
 	<h:head><title>Listagem</title></h:head>
 	<h:body>
 		<p:link outcome="index" value="voltar"/>
+		<h:form>
 	   	<p:dataTable value="#{jogadaBean.listaJogada}" var="jogada">
 	   		<p:column headerText="Jogador 1"><p:outputLabel value="#{jogada.jogador1}"/></p:column>
 	   		<p:column headerText="Jogador 2"><p:outputLabel value="#{jogada.jogador2}"/></p:column>
 	   		<p:column headerText="Resultado"><p:outputLabel value="#{jogada.resultado}"/></p:column>
 	   		<p:column headerText="Data"><p:outputLabel value="#{jogada.data}"/></p:column>
-	   		<p:column headerText="Editar"><p:commandButton action="#{jogadaBean.editar}" value="Editar" /></p:column>
-	   		<p:column headerText="Excluir"><p:commandButton action="#{jogadaBean.excluir(jogada.id)}" value="Excluir" styleClass="ui-button-danger" /></p:column>
+	   		<p:column headerText="Editar">
+	   			<p:commandButton action="#{jogadaBean.editarJogada}" value="Editar" ajax="false" >
+					<f:setPropertyActionListener target="#{jogadaBean.jogadaUnica}" value="#{jogada}" />
+	   			</p:commandButton>
+   			</p:column>
+	   		<p:column headerText="Excluir">
+	   			<p:commandButton action="#{jogadaBean.excluir}" value="Excluir" styleClass="ui-button-danger" >
+	   				<f:setPropertyActionListener target="#{jogadaBean.jogadaUnica}" value="#{jogada}" />
+	   			</p:commandButton>
+   			</p:column>
 	   	</p:dataTable>
+	   	</h:form>
    	</h:body>
 </html>

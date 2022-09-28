@@ -21,6 +21,7 @@ public class JogadaBean
 {
 	private Jogada jogada = new Jogada();
 	private List<Jogada> listaJogada;
+	private Jogada jogadaUnica;
 	
 	public String salvar() 
 	{
@@ -67,21 +68,30 @@ public class JogadaBean
 		return null;
 	}
 	
-	public String editar() 
+	public String editarJogada() 
 	{
-		System.out.println("Editar");
+		try {
+			System.out.println("Editar");
+			System.out.println(jogadaUnica);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e);
+		}
+		
 		
 		return null;
 	}
 	
-	public String excluir(String idJogada) 
+	public String excluir() 
 	{
-		System.out.println("excluir");
-		System.out.println(idJogada);
+		try {
+			JogadaDAO.excluir(getJogadaUnica());
+		} catch (Exception e) {
+			System.out.println(e);
+			addErrorMessage("Erro", "Erro ao excluir jogada.");
+		}
 		return null;
 	}
-	
-	
 
 	public Jogada getJogada() {
 		return jogada;
@@ -98,7 +108,11 @@ public class JogadaBean
 		return listaJogada;
 	}
 
-	public void setListaJogada(List<Jogada> listaJogada) {
-		this.listaJogada = listaJogada;
+	public Jogada getJogadaUnica() {
+		return jogadaUnica;
+	}
+
+	public void setJogadaUnica(Jogada jogadaUnica) {
+		this.jogadaUnica = jogadaUnica;
 	}
 }
